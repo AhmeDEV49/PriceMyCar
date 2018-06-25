@@ -107,7 +107,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         } else {
             requestCameraPermission();
         }
-        
+
         scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
 
         Snackbar.make(graphicOverlay, "Tap to Speak. Pinch/Stretch to zoom",

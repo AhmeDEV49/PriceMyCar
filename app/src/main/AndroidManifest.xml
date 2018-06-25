@@ -21,13 +21,13 @@
             android:value="ocr" />
 
         <activity android:name=".MainActivity">
-
-        </activity>
-        <activity android:name="pricemycar.eni.fr.pricemycar.ocrreader.OcrCaptureActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="pricemycar.eni.fr.pricemycar.ocrreader.OcrCaptureActivity">
+
         </activity>
     </application>
 
