@@ -20,11 +20,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
-import com.google.android.gms.samples.vision.ocrreader.ui.camera.GraphicOverlay;
+import pricemycar.eni.fr.pricemycar.ocrreader.ui.camera.GraphicOverlay;
 import com.google.android.gms.vision.text.Text;
 import com.google.android.gms.vision.text.TextBlock;
 
 import java.util.List;
+
+import pricemycar.eni.fr.pricemycar.ocrreader.ui.camera.GraphicOverlay;
 
 /**
  * Graphic instance for rendering TextBlock position, size, and ID within an associated graphic

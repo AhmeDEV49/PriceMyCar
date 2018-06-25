@@ -41,9 +41,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSource;
-import com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSourcePreview;
-import com.google.android.gms.samples.vision.ocrreader.ui.camera.GraphicOverlay;
+
+import pricemycar.eni.fr.pricemycar.R;
+import pricemycar.eni.fr.pricemycar.ocrreader.OcrDetectorProcessor;
+import pricemycar.eni.fr.pricemycar.ocrreader.OcrGraphic;
+import pricemycar.eni.fr.pricemycar.ocrreader.ui.camera.CameraSource;
+import pricemycar.eni.fr.pricemycar.ocrreader.ui.camera.CameraSourcePreview;
+import pricemycar.eni.fr.pricemycar.ocrreader.ui.camera.GraphicOverlay;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
@@ -103,8 +107,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         } else {
             requestCameraPermission();
         }
-
-        gestureDetector = new GestureDetector(this, new CaptureGestureListener());
+        
         scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
 
         Snackbar.make(graphicOverlay, "Tap to Speak. Pinch/Stretch to zoom",
@@ -214,12 +217,12 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         // to other detection examples to enable the text recognizer to detect small pieces of text.
         cameraSource =
                 new CameraSource.Builder(getApplicationContext(), textRecognizer)
-                .setFacing(CameraSource.CAMERA_FACING_BACK)
-                .setRequestedPreviewSize(1280, 1024)
-                .setRequestedFps(2.0f)
-                .setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
-                .setFocusMode(autoFocus ? Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO : null)
-                .build();
+                        .setFacing(CameraSource.CAMERA_FACING_BACK)
+                        .setRequestedPreviewSize(1280, 1024)
+                        .setRequestedFps(2.0f)
+                        .setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
+                        .setFocusMode(autoFocus ? Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO : null)
+                        .build();
     }
 
     /**
@@ -328,41 +331,6 @@ public final class OcrCaptureActivity extends AppCompatActivity {
                 cameraSource.release();
                 cameraSource = null;
             }
-        }
-    }
-
-    /**
-     * onTap is called to speak the tapped TextBlock, if any, out loud.
-     *
-     * @param rawX - the raw position of the tap
-     * @param rawY - the raw position of the tap.
-     * @return true if the tap was on a TextBlock
-     */
-    private boolean onTap(float rawX, float rawY) {
-        OcrGraphic graphic = graphicOverlay.getGraphicAtLocation(rawX, rawY);
-        TextBlock text = null;
-        if (graphic != null) {
-            text = graphic.getTextBlock();
-            if (text != null && text.getValue() != null) {
-                Log.d(TAG, "text data is being spoken! " + text.getValue());
-                // Speak the string.
-                tts.speak(text.getValue(), TextToSpeech.QUEUE_ADD, null, "DEFAULT");
-            }
-            else {
-                Log.d(TAG, "text data is null");
-            }
-        }
-        else {
-            Log.d(TAG,"no text detected");
-        }
-        return text != null;
-    }
-
-    private class CaptureGestureListener extends GestureDetector.SimpleOnGestureListener {
-
-        @Override
-        public boolean onSingleTapConfirmed(MotionEvent e) {
-            return onTap(e.getRawX(), e.getRawY()) || super.onSingleTapConfirmed(e);
         }
     }
 

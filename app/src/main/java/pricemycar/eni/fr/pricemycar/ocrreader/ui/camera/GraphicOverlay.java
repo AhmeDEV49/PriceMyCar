@@ -13,13 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package pricemycar.eni.fr.pricemycar.ocrreader.camera;
+package pricemycar.eni.fr.pricemycar.ocrreader.ui.camera;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.google.android.gms.vision.CameraSource;
 
 import java.util.HashSet;
 import java.util.Set;

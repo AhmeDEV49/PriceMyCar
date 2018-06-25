@@ -35,30 +35,10 @@ public class MainActivity extends AppCompatActivity {
         searchTxt = findViewById(R.id.txtSearch);
     }
 
-    public void openPhoto(View view)
-    {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
-            }
-        }
-
-        Intent mediaChooser =  new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(mediaChooser, 1);
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (requestCode == 1)
-        {
-            // Traitement de la photo...
-        }
-    }
-
     // Vérifie que la plaque d'immatriculation proposée est au bon format
     public static boolean isImmatriculationValid(String plateNumber)
     {
-        String expression = "[A-Z]{2}-\\d{3}-[A-Z]{2}";
+        String expression = "\"^[A-Za-z]{2}-[0-9]{3}-[A-Za-z]{2}([0-9]{2})?$\"";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(plateNumber);
         return matcher.matches();
