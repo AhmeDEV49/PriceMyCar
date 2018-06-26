@@ -20,25 +20,17 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="ocr" />
 
-<<<<<<< HEAD
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".ocrreader.OcrCaptureActivity">
-=======
         <activity android:name=".MainActivity">
->>>>>>> 601cc34c34505ec68a3b27bf01826b0cc5cd75dd
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
         <activity android:name=".ResultsActivity"></activity>
-=======
         <activity android:name="pricemycar.eni.fr.pricemycar.ocrreader.OcrCaptureActivity">
 
         </activity>
->>>>>>> 601cc34c34505ec68a3b27bf01826b0cc5cd75dd
     </application>
 
 </manifest>
