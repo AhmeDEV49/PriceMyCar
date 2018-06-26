@@ -2,19 +2,19 @@ package pricemycar.eni.fr.pricemycar.vehicleRecognition;
 
 public class Vehicle {
     private String description;
-    private int anneeSortie;
+    private String anneeSortie;
     private String boiteDeVitesse;
     private String carburantVersion;
     private String libVersion;
     private String libelleModele;
-    private int nbPlace;
-    private int puissance;
+    private String nbPlace;
+    private String puissance;
 
     public Vehicle() {
 
     }
 
-    public Vehicle(String description, int anneeSortie, String boiteDeVitesse, String carburantVersion, String libVersion,String libelleModele, int nbPlace, int puissance)
+    public Vehicle(String description, String anneeSortie, String boiteDeVitesse, String carburantVersion, String libVersion,String libelleModele, String nbPlace, String puissance)
     {
         this.description = description;
         this.anneeSortie = anneeSortie;
@@ -26,6 +26,10 @@ public class Vehicle {
         this.puissance = puissance;
     }
 
+    public String toString() {
+      return "Description : "+this.description+"\n Année de sortie :"+this.anneeSortie+"\n Boite de vitesse :"+this.boiteDeVitesse+"\n Carburant :"+this.carburantVersion+"\n Version : "+this.libVersion+"\n Modèle :"+this.libelleModele+"\n Place :"+this.nbPlace+"\n Puissance :"+this.puissance;
+    }
+
 
     /**
     * Getters and setters
@@ -33,11 +37,11 @@ public class Vehicle {
     **/
 
 
-    public int getPuissance() {
+    public String getPuissance() {
         return puissance;
     }
 
-    public void setPuissance(int puissance) {
+    public void setPuissance(String puissance) {
         this.puissance = puissance;
     }
 
@@ -49,11 +53,11 @@ public class Vehicle {
         this.description = description;
     }
 
-    public int getAnneeSortie() {
+    public String getAnneeSortie() {
         return anneeSortie;
     }
 
-    public void setAnneeSortie(int anneeSortie) {
+    public void setAnneeSortie(String anneeSortie) {
         this.anneeSortie = anneeSortie;
     }
 
@@ -89,11 +93,11 @@ public class Vehicle {
         this.libelleModele = libelleModele;
     }
 
-    public int getNbPlace() {
+    public String getNbPlace() {
         return nbPlace;
     }
 
-    public void setNbPlace(int nbPlace) {
+    public void setNbPlace(String nbPlace) {
         this.nbPlace = nbPlace;
     }
 }
