@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/background_image">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="44dp"
         android:text="Price My Car"
-        android:textSize="40dp"
+        android:textColor="#ffffff"
+        android:textSize="30dp"
         android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,13 +26,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Entrez une plaque d'immatriculation :"
+        android:textColor="#ffffff"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
-        app:layout_constraintVertical_bias="0.116" />
+        app:layout_constraintVertical_bias="0.045" />
 
     <EditText
         android:id="@+id/txtSearch"
@@ -38,6 +41,7 @@
         android:layout_height="wrap_content"
         android:hint="AA-123-AA"
         android:textSize="24dp"
+        android:textColor="#ffffff"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblSearch" />
@@ -59,13 +63,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Prendre une photo"
+        android:textColor="#ffffff"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSearch"
-        app:layout_constraintVertical_bias="0.097" />
+        app:layout_constraintVertical_bias="0.046" />
 
     <ImageButton
         android:id="@+id/btnPhoto"
