@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import org.parceler.Parcel;
+import org.parceler.Parcels;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,12 +21,12 @@ import pricemycar.eni.fr.pricemycar.ocrreader.OcrCaptureActivity;
 import pricemycar.eni.fr.pricemycar.vehicleRecognition.PlateAPI;
 import pricemycar.eni.fr.pricemycar.vehicleRecognition.Vehicle;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private final static int REQUEST_CODE_ASK_PERMISSIONS = 1;
-
-    private static final String[] REQUIRED_SDK_PERMISSIONS = new String[] {
-            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE };
+    private final static String EXTRA_OBJET = "vehicle";
+    private static final String[] REQUIRED_SDK_PERMISSIONS = new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE };
 
     EditText searchTxt;
     ImageButton btnPhoto;
@@ -45,24 +48,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+                                         @Override
+                                         public void onClick(View view) {
+                                             PlateAPI api_request = new PlateAPI();
+                                             Vehicle vehicle = api_request.requestAPI(searchTxt.getText().toString(), new PlateAPI.OnGetPlate() {
+                                                 @Override
+                                                 public void onGetVehicle(Vehicle vehicle) {
+                                                     Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
+                                                     intent.putExtra(EXTRA_OBJET, Parcels.wrap(vehicle));
+                                                     startActivity(intent);
 
-
-
-
-
-        btnSearch.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        PlateAPI api_request = new PlateAPI();
-                        Vehicle vehicle = api_request.requestAPI(searchTxt.getText().toString(), new PlateAPI.OnGetPlate() {
-                            @Override
-                            public void onGetVehicle(Vehicle vehicle) {
-                                Toast.makeText(MainActivity.this,vehicle.toString(),Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-                }
+                                                 }
+                                             });
+                                         }
+                                     }
         );
 
     }

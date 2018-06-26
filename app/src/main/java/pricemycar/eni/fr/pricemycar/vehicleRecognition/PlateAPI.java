@@ -1,5 +1,6 @@
 package pricemycar.eni.fr.pricemycar.vehicleRecognition;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -8,13 +9,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import pricemycar.eni.fr.pricemycar.MainActivity;
 
 import static org.apache.commons.lang3.StringUtils.substringBetween;
 
 public class PlateAPI {
     final String API_URL = "http://www.regcheck.org.uk/api/reg.asmx/CheckFrance";
     final String LOG_JSON_ERROR = "L'appel AJAX a échoué !";
-    final String USERNAME = "jimmy";
+    final String USERNAME = "jacques";
     final String PARSE_VEHICLE_ERR_MSG = "Impossible de parser le véhicule...";
     Vehicle vehicle;
 

@@ -1,6 +1,11 @@
 package pricemycar.eni.fr.pricemycar.vehicleRecognition;
 
-public class Vehicle {
+import org.parceler.Parcel;
+
+import java.io.Serializable;
+
+@Parcel
+public class Vehicle implements Serializable {
     private String description;
     private String anneeSortie;
     private String boiteDeVitesse;
@@ -30,6 +35,10 @@ public class Vehicle {
       return "Description : "+this.description+"\n Année de sortie :"+this.anneeSortie+"\n Boite de vitesse :"+this.boiteDeVitesse+"\n Carburant :"+this.carburantVersion+"\n Version : "+this.libVersion+"\n Modèle :"+this.libelleModele+"\n Place :"+this.nbPlace+"\n Puissance :"+this.puissance;
     }
 
+
+    public boolean isValid() {
+        return !description.equalsIgnoreCase("");
+    }
 
     /**
     * Getters and setters
