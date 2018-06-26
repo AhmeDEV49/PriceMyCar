@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import java.util.regex.Pattern;
 
 import pricemycar.eni.fr.pricemycar.ocrreader.OcrCaptureActivity;
 import pricemycar.eni.fr.pricemycar.vehicleRecognition.PlateAPI;
+import pricemycar.eni.fr.pricemycar.vehicleRecognition.Vehicle;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText searchTxt;
     ImageButton btnPhoto;
-
+    ImageButton btnSearch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         searchTxt = findViewById(R.id.txtSearch);
         btnPhoto = findViewById(R.id.btnPhoto);
+        btnSearch = findViewById(R.id.btnSearch);
 
         btnPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,8 +45,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        PlateAPI immat = new PlateAPI();
-        immat.requestAPI("dm-869-gp");
+
+
+
+
+
+        btnSearch.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        PlateAPI api_request = new PlateAPI();
+                        Vehicle vehicle = api_request.requestAPI(searchTxt.getText().toString(), new PlateAPI.OnGetPlate() {
+                            @Override
+                            public void onGetVehicle(Vehicle vehicle) {
+                                Toast.makeText(MainActivity.this,vehicle.toString(),Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }
+        );
+
     }
 
     // Vérifie que la plaque d'immatriculation proposée est au bon format

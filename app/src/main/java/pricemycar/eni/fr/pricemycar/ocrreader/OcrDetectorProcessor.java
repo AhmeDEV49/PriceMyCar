@@ -20,6 +20,7 @@ import android.util.SparseArray;
 
 import pricemycar.eni.fr.pricemycar.ocrreader.ui.camera.GraphicOverlay;
 import pricemycar.eni.fr.pricemycar.vehicleRecognition.PlateAPI;
+import pricemycar.eni.fr.pricemycar.vehicleRecognition.Vehicle;
 
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
@@ -60,7 +61,7 @@ public class OcrDetectorProcessor implements Detector.Processor<TextBlock> {
                     OcrGraphic graphic = new OcrGraphic(graphicOverlay, item);
                     graphicOverlay.add(graphic);
                     PlateAPI plateAPI = new PlateAPI();
-                    plateAPI.requestAPI(item.getValue());
+                    Vehicle vehicle = plateAPI.requestAPI(item.getValue(),null);
                 }
             }
         }
