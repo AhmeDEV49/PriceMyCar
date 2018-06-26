@@ -110,7 +110,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 
         scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
 
-        Snackbar.make(graphicOverlay, "Tap to Speak. Pinch/Stretch to zoom",
+        Snackbar.make(graphicOverlay, "Sélectionnez une plaque.",
                 Snackbar.LENGTH_LONG)
                 .show();
 
