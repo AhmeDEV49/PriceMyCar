@@ -1,15 +1,7 @@
 package pricemycar.eni.fr.pricemycar;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.media.Image;
-import android.os.Build;
-import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import pricemycar.eni.fr.pricemycar.ocrreader.OcrCaptureActivity;
+import pricemycar.eni.fr.pricemycar.vehicleRecognition.PlateAPI;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        PlateAPI immat = new PlateAPI();
+        immat.requestAPI();
     }
 
     // Vérifie que la plaque d'immatriculation proposée est au bon format
