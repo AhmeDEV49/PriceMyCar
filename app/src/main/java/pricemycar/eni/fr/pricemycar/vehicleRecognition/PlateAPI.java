@@ -1,6 +1,8 @@
 package pricemycar.eni.fr.pricemycar.vehicleRecognition;
 
 import android.util.Log;
+
+import com.google.gson.JsonParser;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -10,33 +12,37 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
+import static org.apache.commons.lang3.StringUtils.substringBetween;
+
 public class PlateAPI {
     final String API_URL = "http://www.regcheck.org.uk/api/reg.asmx/CheckFrance";
-    final String API_USER = "moi";
     final String LOG_JSON_ERROR = "L'appel AJAX a échoué !";
-    private String vehicle_plate = "bd-454-dx";
+    final String USERNAME = "philippe";
 
 
-    public Vehicle requestAPI(String plate_number){
+
+    public void requestAPI(String plate_number) {
         AsyncHttpClient client = new AsyncHttpClient();
         // paramètres :
         RequestParams requestParams = new RequestParams();
-        requestParams.put("RegistrationNumber", vehicle_plate);
-        requestParams.put("username",API_USER);
+        requestParams.put("RegistrationNumber", plate_number);
+        requestParams.put("username", USERNAME);
         // appel :
         client.post(API_URL, requestParams, new AsyncHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                String json = new String(response);
-                json = StringUtils.substringBetween(json, "<vehicleJson>", "</vehicleJson>");
-                try {
-                    JSONObject jsonObj = new JSONObject(json);
-                    JSONObject extended = jsonObj.getJSONObject("ExtendedData");
-                    Log.i("LA VERSION !!! ",extended.getString("libVersion"));
-                    Log.i("!!!! LE MODELE : ",extended.getString("libelleModele"));
+                String response_vehicle = new String(response);
 
+                 response_vehicle = substringBetween(response_vehicle, "<vehicleJson>", "</vehicleJson");
+                // Parse it into JSON object
+                try {
+                    JSONObject vehicle_json = new JSONObject(response_vehicle);
+                    JSONObject french_raw_json = vehicle_json.getJSONObject("ExtendedData");
+                    Vehicle vehicle = new Vehicle(vehicle_json.getString("Description"),french_raw_json.getString("anneeSortie"),french_raw_json.getString("boiteDeVitesse"),french_raw_json.getString("carburantVersion"),french_raw_json.getString("libVersion"),french_raw_json.getString("libelleModele"),french_raw_json.getString("nbPlace"),french_raw_json.getString("puissance"));
+                    Log.i("IT WORKS !!!!",vehicle.toString());
                 } catch (JSONException e) {
+                    Log.i("PARSE_VEHICLE_ERR", "Impossible de parser...");
                     e.printStackTrace();
                 }
             }
@@ -48,6 +54,4 @@ public class PlateAPI {
             }
         });
     }
-
-
 }

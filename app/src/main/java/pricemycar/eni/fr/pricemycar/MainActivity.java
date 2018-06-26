@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         PlateAPI immat = new PlateAPI();
-        immat.requestAPI();
+        immat.requestAPI("dm-869-gp");
     }
 
     // Vérifie que la plaque d'immatriculation proposée est au bon format
