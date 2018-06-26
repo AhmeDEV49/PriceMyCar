@@ -36,7 +36,7 @@
         android:id="@+id/txtSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="XX-000-XX"
+        android:hint="AA-123-AA"
         android:textSize="24dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

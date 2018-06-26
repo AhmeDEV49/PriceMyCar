@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
-            Toast.makeText(this, "Veuillez entrer un numéro de plaque valide.",
+            Toast.makeText(this, "Numéro de plaque invalide.",
                     Toast.LENGTH_LONG).show();
 
         }
