@@ -3,9 +3,8 @@ package pricemycar.eni.fr.pricemycar;
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.Toast;
 
 import org.parceler.Parcels;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         historyTxt = findViewById(R.id.txtHistory);
 
         SharedPreferences preferences =
-                PreferenceManager.getDefaultSharedPreferences(this);
+        PreferenceManager.getDefaultSharedPreferences(this);
         historyTxt.setText(preferences.getString("1", "Aucun contenu"));
 
         btnPhoto.setOnClickListener(new View.OnClickListener() {
@@ -69,22 +67,25 @@ public class MainActivity extends AppCompatActivity {
 
                                                      editor.putString("1", searchTxt.getText().toString());
                                                      editor.apply();
+
                                                      Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
                                                      intent.putExtra(EXTRA_OBJET, Parcels.wrap(vehicle));
                                                      startActivity(intent);
 
                                                  }
-                                             }, MainActivity.this);
-
-                                             historyTxt.setOnClickListener(new View.OnClickListener() {
-                                                 @Override
-                                                 public void onClick(View view) {
-                                                     searchTxt.setText(historyTxt.getText());
-                                                 }
-                                             });
-
+                                             },MainActivity.this);
                                          }
-                                     });
+                                     }
+        );
+
+        historyTxt.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                searchTxt.setText(historyTxt.getText());
+            }
+        });
+
+    }
 
     // Vérifie que la plaque d'immatriculation proposée est au bon format
     public static boolean isImmatriculationValid(String plateNumber)
@@ -114,15 +115,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
+     @Override
+     protected void onResume() {
 
-        historyTxt = findViewById(R.id.txtHistory);
+                historyTxt = findViewById(R.id.txtHistory);
 
-        SharedPreferences preferences =
+                SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
         historyTxt.setText(preferences.getString("1", "Aucun contenu"));
 
         super.onResume();
-    }
+     }
 }
