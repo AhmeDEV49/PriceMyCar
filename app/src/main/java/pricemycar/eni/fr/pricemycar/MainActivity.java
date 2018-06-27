@@ -2,6 +2,12 @@ package pricemycar.eni.fr.pricemycar;
 
 import android.Manifest;
 import android.content.Intent;
+<<<<<<< HEAD
+=======
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
+>>>>>>> 8e6342a9b1c9006703410b8f63cc46ee9fed941d
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,6 +18,7 @@ import android.widget.Toast;
 
 import org.parceler.Parcels;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     EditText searchTxt;
     ImageButton btnPhoto;
     ImageButton btnSearch;
+    EditText historyTxt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
         searchTxt = findViewById(R.id.txtSearch);
         btnPhoto = findViewById(R.id.btnPhoto);
         btnSearch = findViewById(R.id.btnSearch);
+        historyTxt = findViewById(R.id.txtHistory);
+
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        historyTxt.setText(preferences.getString("1", "Aucun contenu"));
 
         btnPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
+<<<<<<< HEAD
                                          @Override
                                          public void onClick(View view) {
                                              PlateAPI api_request = new PlateAPI();
@@ -61,7 +75,38 @@ public class MainActivity extends AppCompatActivity {
                                              },MainActivity.this);
                                          }
                                      }
+=======
+                 @Override
+                 public void onClick(View view) {
+                     PlateAPI api_request = new PlateAPI();
+                     Vehicle vehicle = api_request.requestAPI(searchTxt.getText().toString(), new PlateAPI.OnGetPlate() {
+                         @Override
+                         public void onGetVehicle(Vehicle vehicle) {
+
+                             SharedPreferences preferences =
+                                     PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                             SharedPreferences.Editor editor = preferences.edit();
+
+                             editor.putString("1", searchTxt.getText().toString());
+                             editor.apply();
+
+                             Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
+                             intent.putExtra(EXTRA_OBJET, Parcels.wrap(vehicle));
+                             startActivity(intent);
+
+                         }
+                     });
+                 }
+             }
+>>>>>>> 8e6342a9b1c9006703410b8f63cc46ee9fed941d
         );
+
+        historyTxt.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                searchTxt.setText(historyTxt.getText());
+            }
+        });
 
     }
 
@@ -91,5 +136,17 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+
+        historyTxt = findViewById(R.id.txtHistory);
+
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        historyTxt.setText(preferences.getString("1", "Aucun contenu"));
+
+        super.onResume();
     }
 }

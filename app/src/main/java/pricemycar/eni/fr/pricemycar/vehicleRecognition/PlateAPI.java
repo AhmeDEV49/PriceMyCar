@@ -19,7 +19,11 @@ import static org.apache.commons.lang3.StringUtils.substringBetween;
 public class PlateAPI {
     final String API_URL = "http://www.regcheck.org.uk/api/reg.asmx/CheckFrance";
     final String LOG_JSON_ERROR = "L'appel AJAX a échoué !";
+<<<<<<< HEAD
     final String USERNAME = "martin";
+=======
+    final String USERNAME = "adam";
+>>>>>>> 8e6342a9b1c9006703410b8f63cc46ee9fed941d
     final String PARSE_VEHICLE_ERR_MSG = "Impossible de parser le véhicule...";
     Vehicle vehicle;
 
