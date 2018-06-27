@@ -20,16 +20,24 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="ocr" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:label="Accueil">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ResultsActivity"></activity>
-        <activity android:name="pricemycar.eni.fr.pricemycar.ocrreader.OcrCaptureActivity">
-
+        <activity android:name=".ResultsActivity"
+            android:label="Résultats de la rechercher">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pricemycar.eni.fr.pricemycar.MainActivity" />
+        </activity>
+        <activity android:name="pricemycar.eni.fr.pricemycar.ocrreader.OcrCaptureActivity"
+            android:label="Prenez en photo une plaque">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pricemycar.eni.fr.pricemycar.MainActivity" />
         </activity>
     </application>
 

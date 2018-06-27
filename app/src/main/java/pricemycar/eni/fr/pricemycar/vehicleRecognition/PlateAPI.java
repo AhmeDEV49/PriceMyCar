@@ -3,6 +3,7 @@ package pricemycar.eni.fr.pricemycar.vehicleRecognition;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -22,13 +23,13 @@ public class PlateAPI {
     final String API_ESTIMATION_URL = "https://api.autovisual.com/v2/av";
     final String API_ESTIMATION_KEY = "Gck5sjksJDnR7C1bTJuY7puv19qB6X2fULvQyPfpKmR6";
     final String LOG_JSON_ERROR = "L'appel AJAX a échoué !";
-    final String USERNAME = "martin";
+    final String USERNAME = "luc";
     final String PARSE_VEHICLE_ERR_MSG = "Impossible de parser le véhicule...";
     Vehicle vehicle;
     AsyncHttpClient client;
 
 
-    public Vehicle requestAPI(final String plate_number,final OnGetPlate listener, Context context){
+    public Vehicle requestAPI(final String plate_number, final OnGetPlate listener, final Context context){
             if (context instanceof Activity) {
                 client = new AsyncHttpClient();
 
@@ -64,6 +65,7 @@ public class PlateAPI {
                                 plate_number);
                         listener.onGetVehicle(vehicle);
                     } catch (JSONException e) {
+                        Toast.makeText(context, "Erreur JSON", Toast.LENGTH_LONG).show();
                         Log.i("PARSE_VEHICLE_ERR", PARSE_VEHICLE_ERR_MSG);
                         e.printStackTrace();
                     }
