@@ -17,6 +17,7 @@ import org.parceler.Parcels;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import info.hoang8f.widget.FButton;
 import pricemycar.eni.fr.pricemycar.ocrreader.OcrCaptureActivity;
 import pricemycar.eni.fr.pricemycar.vehicleRecognition.PlateAPI;
 import pricemycar.eni.fr.pricemycar.vehicleRecognition.Vehicle;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText searchTxt;
     ImageButton btnPhoto;
-    ImageButton btnSearch;
+    FButton btnSearch;
     EditText historyTxt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
