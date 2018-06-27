@@ -113,21 +113,6 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         Snackbar.make(graphicOverlay, "Sélectionnez une plaque.",
                 Snackbar.LENGTH_LONG)
                 .show();
-
-        // Set up the Text To Speech engine.
-        TextToSpeech.OnInitListener listener =
-                new TextToSpeech.OnInitListener() {
-                    @Override
-                    public void onInit(final int status) {
-                        if (status == TextToSpeech.SUCCESS) {
-                            Log.d("OnInitListener", "Text to speech engine started successfully.");
-                            tts.setLanguage(Locale.US);
-                        } else {
-                            Log.d("OnInitListener", "Error starting the text to speech engine.");
-                        }
-                    }
-                };
-        tts = new TextToSpeech(this.getApplicationContext(), listener);
     }
 
     /**
@@ -188,7 +173,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         // graphics for each text block on screen.  The factory is used by the multi-processor to
         // create a separate tracker instance for each text block.
         TextRecognizer textRecognizer = new TextRecognizer.Builder(context).build();
-        textRecognizer.setProcessor(new OcrDetectorProcessor(graphicOverlay));
+        textRecognizer.setProcessor(new OcrDetectorProcessor(graphicOverlay,getApplicationContext()));
 
         if (!textRecognizer.isOperational()) {
             // Note: The first time that an app using a Vision API is installed on a

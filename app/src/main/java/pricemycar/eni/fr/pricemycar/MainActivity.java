@@ -58,14 +58,27 @@ public class MainActivity extends AppCompatActivity {
                                              Vehicle vehicle = api_request.requestAPI(searchTxt.getText().toString(), new PlateAPI.OnGetPlate() {
                                                  @Override
                                                  public void onGetVehicle(Vehicle vehicle) {
+                                                     SharedPreferences preferences =
+                                                             PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                                                     SharedPreferences.Editor editor = preferences.edit();
+
+                                                     editor.putString("1", searchTxt.getText().toString());
+                                                     editor.apply();
+
                                                      Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
                                                      intent.putExtra(EXTRA_OBJET, Parcels.wrap(vehicle));
                                                      startActivity(intent);
                                                  }
-                                             });
+                                             },MainActivity.this);
                                          }
                                      }
         );
+        historyTxt.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                searchTxt.setText(historyTxt.getText());
+            }
+        });
     }
     // Vérifie que la plaque d'immatriculation proposée est au bon format
     public static boolean isImmatriculationValid(String plateNumber)
@@ -94,4 +107,16 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+     @Override
+     protected void onResume() {
+
+                historyTxt = findViewById(R.id.txtHistory);
+
+                SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        historyTxt.setText(preferences.getString("1", "Aucun contenu"));
+
+        super.onResume();
+     }
 }
