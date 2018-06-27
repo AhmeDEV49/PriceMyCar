@@ -14,13 +14,16 @@ import pricemycar.eni.fr.pricemycar.MainActivity;
 import static org.apache.commons.lang3.StringUtils.substringBetween;
 
 public class PlateAPI {
+
     final String API_URL = "http://www.regcheck.org.uk/api/reg.asmx/CheckFrance";
+    final String API_ESTIMATION_URL = "https://api.autovisual.com/v2/av";
+    final String API_ESTIMATION_KEY = "Gck5sjksJDnR7C1bTJuY7puv19qB6X2fULvQyPfpKmR6";
     final String LOG_JSON_ERROR = "L'appel AJAX a échoué !";
     final String USERNAME = "jacques";
     final String PARSE_VEHICLE_ERR_MSG = "Impossible de parser le véhicule...";
     Vehicle vehicle;
 
-    public Vehicle requestAPI(String plate_number, final OnGetPlate listener) {
+    public Vehicle requestAPI(final String plate_number, final OnGetPlate listener) {
         AsyncHttpClient client = new AsyncHttpClient();
         // paramètres :
         RequestParams requestParams = new RequestParams();
@@ -44,7 +47,8 @@ public class PlateAPI {
                             french_raw_json.getString("libVersion"),
                             french_raw_json.getString("libelleModele"),
                             french_raw_json.getString("nbPlace"),
-                            french_raw_json.getString("puissance"));
+                            french_raw_json.getString("puissance"),
+                            plate_number);
                     listener.onGetVehicle(vehicle);
                 } catch (JSONException e) {
                     Log.i("PARSE_VEHICLE_ERR", PARSE_VEHICLE_ERR_MSG);
@@ -60,6 +64,47 @@ public class PlateAPI {
         });
         return vehicle;
     }
+
+
+    public String getVehiculeCote() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        // paramètres :
+        RequestParams requestParams = new RequestParams();
+        requestParams.put("key",API_ESTIMATION_KEY);
+        requestParams.put("country_ref","FR");
+        requestParams.put("txt","Renault Mégane 3 III dCi 110 ");
+        requestParams.put("dt_entry_service",2018);
+        requestParams.put("km",0);
+
+
+        // appel :
+        client.post(API_ESTIMATION_URL, requestParams, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+               String response_vehicle = new String(response);
+                try {
+                    JSONObject estimation_vehicle_json = new JSONObject(response_vehicle);
+                    Log.i("COTE VEHICULE : ",estimation_vehicle_json.getJSONObject("value").toString());
+
+                } catch (JSONException e) {
+                    Log.i("PARSE_VEHICLE_ERR_MSG",e.toString());
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers,
+                                  byte[] errorResponse, Throwable e) {
+                Log.e(LOG_JSON_ERROR, e.toString());
+            }
+        });
+        return "VIDEEEEEEEEEEEE";
+    }
+
+
+
+
+
     public interface OnGetPlate{
         void onGetVehicle(Vehicle vehicle);
     }

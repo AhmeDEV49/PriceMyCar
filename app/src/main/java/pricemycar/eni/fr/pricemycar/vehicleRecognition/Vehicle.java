@@ -13,13 +13,14 @@ public class Vehicle implements Serializable {
     private String libVersion;
     private String libelleModele;
     private String nbPlace;
+    private String immat;
     private String puissance;
 
     public Vehicle() {
 
     }
 
-    public Vehicle(String description, String anneeSortie, String boiteDeVitesse, String carburantVersion, String libVersion,String libelleModele, String nbPlace, String puissance)
+    public Vehicle(String description, String anneeSortie, String boiteDeVitesse, String carburantVersion, String libVersion,String libelleModele, String nbPlace, String puissance, String immat)
     {
         this.description = description;
         this.anneeSortie = anneeSortie;
@@ -29,6 +30,7 @@ public class Vehicle implements Serializable {
         this.libelleModele = libelleModele;
         this.nbPlace = nbPlace;
         this.puissance = puissance;
+        this.immat = immat;
     }
 
     public String toString() {
@@ -108,5 +110,13 @@ public class Vehicle implements Serializable {
 
     public void setNbPlace(String nbPlace) {
         this.nbPlace = nbPlace;
+    }
+
+    public String getImmat() {
+        return immat;
+    }
+
+    public void setImmat(String immat) {
+        this.immat = immat;
     }
 }

@@ -36,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        PlateAPI plate = new PlateAPI();
+        Toast.makeText(MainActivity.this,plate.getVehiculeCote(),Toast.LENGTH_LONG).show();
+
+
         searchTxt = findViewById(R.id.txtSearch);
         btnPhoto = findViewById(R.id.btnPhoto);
         btnSearch = findViewById(R.id.btnSearch);
@@ -47,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         btnSearch.setOnClickListener(new View.OnClickListener() {
                                          @Override
                                          public void onClick(View view) {
@@ -58,15 +61,12 @@ public class MainActivity extends AppCompatActivity {
                                                      Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
                                                      intent.putExtra(EXTRA_OBJET, Parcels.wrap(vehicle));
                                                      startActivity(intent);
-
                                                  }
                                              });
                                          }
                                      }
         );
-
     }
-
     // Vérifie que la plaque d'immatriculation proposée est au bon format
     public static boolean isImmatriculationValid(String plateNumber)
     {
