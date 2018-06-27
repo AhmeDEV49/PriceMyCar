@@ -2,16 +2,16 @@ package pricemycar.eni.fr.pricemycar;
 
 import android.Manifest;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import org.parceler.Parcel;
 import org.parceler.Parcels;
 
 import java.util.regex.Matcher;
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     EditText searchTxt;
     ImageButton btnPhoto;
     ImageButton btnSearch;
+    EditText historyTxt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
         searchTxt = findViewById(R.id.txtSearch);
         btnPhoto = findViewById(R.id.btnPhoto);
         btnSearch = findViewById(R.id.btnSearch);
+        historyTxt = findViewById(R.id.txtHistory);
+
+        SharedPreferences preferences =
+        PreferenceManager.getDefaultSharedPreferences(this);
+        historyTxt.setText(preferences.getString("1", "Aucun contenu"));
 
         btnPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
