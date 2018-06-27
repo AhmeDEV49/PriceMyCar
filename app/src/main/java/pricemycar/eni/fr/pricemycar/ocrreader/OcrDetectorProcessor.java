@@ -15,18 +15,23 @@
  */
 package pricemycar.eni.fr.pricemycar.ocrreader;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.util.SparseArray;
-
-import pricemycar.eni.fr.pricemycar.ocrreader.ui.camera.GraphicOverlay;
-import pricemycar.eni.fr.pricemycar.vehicleRecognition.PlateAPI;
-import pricemycar.eni.fr.pricemycar.vehicleRecognition.Vehicle;
 
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
 
+import org.parceler.Parcels;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import pricemycar.eni.fr.pricemycar.ResultsActivity;
+import pricemycar.eni.fr.pricemycar.ocrreader.ui.camera.GraphicOverlay;
+import pricemycar.eni.fr.pricemycar.vehicleRecognition.PlateAPI;
+import pricemycar.eni.fr.pricemycar.vehicleRecognition.Vehicle;
 
 /**
  * A very simple Processor which gets detected TextBlocks and adds them to the overlay
@@ -35,9 +40,11 @@ import java.util.regex.Pattern;
 public class OcrDetectorProcessor implements Detector.Processor<TextBlock> {
 
     private GraphicOverlay<OcrGraphic> graphicOverlay;
+    private Context context;
 
-    OcrDetectorProcessor(GraphicOverlay<OcrGraphic> ocrGraphicOverlay) {
+    OcrDetectorProcessor(GraphicOverlay<OcrGraphic> ocrGraphicOverlay, Context context) {
         graphicOverlay = ocrGraphicOverlay;
+        this.context = context;
     }
 
     /**
@@ -61,7 +68,16 @@ public class OcrDetectorProcessor implements Detector.Processor<TextBlock> {
                     OcrGraphic graphic = new OcrGraphic(graphicOverlay, item);
                     graphicOverlay.add(graphic);
                     PlateAPI plateAPI = new PlateAPI();
-                    Vehicle vehicle = plateAPI.requestAPI(item.getValue(),null);
+                    plateAPI.requestAPI(item.getValue(), new PlateAPI.OnGetPlate() {
+                        @Override
+                        public void onGetVehicle(Vehicle vehicle) {
+                            Intent intent = new Intent(context, ResultsActivity.class);
+                            intent.putExtra("vehicle", Parcels.wrap(vehicle));
+                            context.startActivity(intent);
+                        }
+                    },context);
+
+
                 }
             }
         }
