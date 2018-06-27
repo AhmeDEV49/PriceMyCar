@@ -46,17 +46,27 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblSearch" />
 
-    <ImageButton
+
+
+    <info.hoang8f.widget.FButton
         android:id="@+id/btnSearch"
         android:layout_width="wrap_content"
+        app:layout_goneMarginRight="11dp"
         android:layout_height="wrap_content"
-        android:onClick="searchPlate"
-        android:src="@android:drawable/ic_menu_search"
+        app:buttonColor="#3498db"
+        app:shadowColor="#0575E6"
+        android:textColor="#ffffff"
+        android:shadowEnabled="true"
+        android:shadowHeight="5dp"
+        android:cornerRadius="5dp"
+        android:text="Chercher"
+        android:drawableLeft="@drawable/search_image"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toRightOf="@id/txtSearch"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblSearch" />
-    />
+        app:layout_constraintTop_toBottomOf="@+id/lblSearch"
+        />
+
 
     <TextView
         android:id="@+id/lblPhoto"
