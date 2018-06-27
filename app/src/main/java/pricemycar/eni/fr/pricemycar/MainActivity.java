@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String[] REQUIRED_SDK_PERMISSIONS = new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE };
 
     EditText searchTxt;
-    ImageButton btnPhoto;
+    FButton btnPhoto;
     FButton btnSearch;
     EditText historyTxt;
     @Override
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
                                          @Override
                                          public void onClick(View view) {
+                                             if(searchPlate()){
                                              PlateAPI api_request = new PlateAPI();
                                              Vehicle vehicle = api_request.requestAPI(searchTxt.getText().toString(), new PlateAPI.OnGetPlate() {
                                                  @Override
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                                                  }
                                              },MainActivity.this);
                                          }
-                                     }
+                                     }}
         );
         historyTxt.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -96,23 +97,19 @@ public class MainActivity extends AppCompatActivity {
         return matcher.matches();
     }
 
-    public void searchPlate(View view)
+    public boolean searchPlate()
     {
         EditText et = findViewById(R.id.txtSearch);
         Boolean checkPlate = isImmatriculationValid(et.getText().toString());
 
         Log.i(et.getText().toString(), "plaque");
-        if (checkPlate)
+        if (!checkPlate)
         {
-            Toast.makeText(this, "Numéro de plaque valide.",
+            Toast.makeText(this, "Veuillez entrer un numéro de plaque valide.",
                     Toast.LENGTH_LONG).show();
         }
-        else
-        {
-            Toast.makeText(this, "Numéro de plaque invalide.",
-                    Toast.LENGTH_LONG).show();
 
-        }
+        return checkPlate;
     }
 
      @Override
@@ -123,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
         historyTxt.setText(preferences.getString("1", "Aucun contenu"));
-
         super.onResume();
      }
 }

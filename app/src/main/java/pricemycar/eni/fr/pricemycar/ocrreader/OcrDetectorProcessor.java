@@ -65,8 +65,8 @@ public class OcrDetectorProcessor implements Detector.Processor<TextBlock> {
                 Matcher matcher = pattern.matcher(item.getValue());
                 if(matcher.matches()) {
                     Log.d("OcrDetectorProcessor", "Plate detected! " + item.getValue());
-                    OcrGraphic graphic = new OcrGraphic(graphicOverlay, item);
-                    graphicOverlay.add(graphic);
+                    //OcrGraphic graphic = new OcrGraphic(graphicOverlay, item);
+                    //graphicOverlay.add(graphic);
                     PlateAPI plateAPI = new PlateAPI();
                     plateAPI.requestAPI(item.getValue(), new PlateAPI.OnGetPlate() {
                         @Override
