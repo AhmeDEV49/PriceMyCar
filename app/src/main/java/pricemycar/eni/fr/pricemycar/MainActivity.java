@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.setTitle("Accueil");
+
         PlateAPI plate = new PlateAPI();
         Toast.makeText(MainActivity.this,plate.getVehiculeCote(),Toast.LENGTH_LONG).show();
 
