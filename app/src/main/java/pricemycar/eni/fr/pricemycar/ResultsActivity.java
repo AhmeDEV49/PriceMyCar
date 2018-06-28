@@ -47,8 +47,6 @@ public class ResultsActivity extends AppCompatActivity {
             public void onGetCote(String cote_vehicule) {
 
                 vehicle.setCote(cote_vehicule);
-                Toast.makeText(ResultsActivity.this,vehicle.getAnneeSortie(),Toast.LENGTH_LONG).show();
-                Toast.makeText(ResultsActivity.this,vehicle.toString(),Toast.LENGTH_LONG).show();
 
                 txtModele.setText(vehicle.getLibelleModele());
                 txtCarburant.setText(vehicle.getCarburantVersion());

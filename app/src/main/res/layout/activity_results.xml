@@ -52,7 +52,6 @@
             android:id="@+id/txtPlate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DM-869-GP"
             android:textSize="18dp"
             app:layout_constraintLeft_toRightOf="@+id/lblPlate"
             app:layout_constraintTop_toTopOf="parent"
@@ -78,7 +77,6 @@
 
         <TextView
             android:id="@+id/txtModel"
-            android:text="Renault Clio 3"
             android:textSize="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -106,7 +104,6 @@
 
         <TextView
         android:id="@+id/txtType"
-        android:text="Essence"
         android:textSize="18dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -134,7 +131,6 @@
 
         <TextView
         android:id="@+id/txtYear"
-        android:text="2006"
         android:textSize="18dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
