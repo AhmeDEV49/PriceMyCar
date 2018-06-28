@@ -110,8 +110,8 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 
         scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
 
-        Snackbar.make(graphicOverlay, "Sélectionnez une plaque.",
-                Snackbar.LENGTH_LONG)
+        Snackbar.make(graphicOverlay, "Stabilisez l'objectif sur une plaque d'immatriculation.",
+                7000)
                 .show();
     }
 

@@ -25,7 +25,7 @@ public class PlateAPI {
     final String API_ESTIMATION_URL = "https://api.autovisual.com/v2/av";
     final String API_ESTIMATION_KEY = "Gck5sjksJDnR7C1bTJuY7puv19qB6X2fULvQyPfpKmR6";
     final String LOG_JSON_ERROR = "L'appel AJAX a échoué !";
-    final String USERNAME = "martin";
+    final String USERNAME = "luc";
     final String PARSE_VEHICLE_ERR_MSG = "Impossible de parser le véhicule...";
     Vehicle vehicle;
     String cote_vehicule = "Non trouvée";
@@ -33,14 +33,20 @@ public class PlateAPI {
 
 
     public Vehicle requestAPI(final String plate_number, final OnGetPlate listener, final Context context){
+<<<<<<< HEAD
         if (context instanceof Activity) {
             client = new AsyncHttpClient();
+=======
+            if (context instanceof Activity) {
+                client = new AsyncHttpClient();
+>>>>>>> 1a1a4f7fafc1aa0ca2726311a88d09bc2239fcc4
 
         } else {
             client = new SyncHttpClient();
         }
 
 
+<<<<<<< HEAD
         // paramètres :
         RequestParams requestParams = new RequestParams();
         requestParams.put("RegistrationNumber", plate_number);
@@ -70,6 +76,39 @@ public class PlateAPI {
                 } catch (JSONException e) {
                     Log.i("PARSE_VEHICLE_ERR", PARSE_VEHICLE_ERR_MSG);
                     e.printStackTrace();
+=======
+            // paramètres :
+            RequestParams requestParams = new RequestParams();
+            requestParams.put("RegistrationNumber", plate_number);
+            requestParams.put("username", USERNAME);
+            // appel :
+
+            client.post(API_URL, requestParams, new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                    String response_vehicle = new String(response);
+                    response_vehicle = substringBetween(response_vehicle, "<vehicleJson>", "</vehicleJson");
+                    // Parse it into JSON object
+                    try {
+                        JSONObject vehicle_json = new JSONObject(response_vehicle);
+                        JSONObject french_raw_json = vehicle_json.getJSONObject("ExtendedData");
+                        // Return the vehicule object
+                        vehicle = new Vehicle(vehicle_json.getString("Description"),
+                                french_raw_json.getString("anneeSortie"),
+                                french_raw_json.getString("boiteDeVitesse"),
+                                french_raw_json.getString("carburantVersion"),
+                                french_raw_json.getString("libVersion"),
+                                french_raw_json.getString("libelleModele"),
+                                french_raw_json.getString("nbPlace"),
+                                french_raw_json.getString("puissance"),
+                                plate_number);
+                        listener.onGetVehicle(vehicle);
+                    } catch (JSONException e) {
+                        Toast.makeText(context, "Erreur JSON", Toast.LENGTH_LONG).show();
+                        Log.i("PARSE_VEHICLE_ERR", PARSE_VEHICLE_ERR_MSG);
+                        e.printStackTrace();
+                    }
+>>>>>>> 1a1a4f7fafc1aa0ca2726311a88d09bc2239fcc4
                 }
             }
 
