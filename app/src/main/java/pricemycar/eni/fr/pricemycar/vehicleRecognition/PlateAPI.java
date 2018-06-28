@@ -29,7 +29,7 @@ public class PlateAPI {
     final String API_ESTIMATION_URL = "https://api.autovisual.com/v2/av";
     final String API_ESTIMATION_KEY = "Gck5sjksJDnR7C1bTJuY7puv19qB6X2fULvQyPfpKmR6";
     final String LOG_JSON_ERROR = "L'appel AJAX a échoué !";
-    final String USERNAME = "danny";
+    final String USERNAME = "tom";
     final String PARSE_VEHICLE_ERR_MSG = "Impossible de parser le véhicule...";
     Vehicle vehicle;
     String cote_vehicule = "Non trouvée";
@@ -86,7 +86,7 @@ public class PlateAPI {
         return vehicle;
     }
 
-    public String getVehiculeCote(Vehicle vehicle) {
+    public void setVehiculeCote(final Vehicle vehicle, final OnGetCote listener) {
         client = new AsyncHttpClient();
         // paramètres :
         RequestParams requestParams = new RequestParams();
@@ -107,7 +107,6 @@ public class PlateAPI {
 
         // appel :
         client.post(API_ESTIMATION_URL, requestParams, new AsyncHttpResponseHandler() {
-            String cote_vehicule = "Non trouvée";
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
@@ -117,6 +116,8 @@ public class PlateAPI {
                     JSONObject json_vehicle = new JSONObject(response_vehicle);
                     JSONObject json_vehicle_value = json_vehicle.getJSONObject("value");
                     cote_vehicule = json_vehicle_value.getString("c");
+
+                    listener.onGetCote(cote_vehicule);
                 } catch (JSONException e) {
                     Log.i("PARSE_VEHICLE_ERR_MSG", e.toString());
                     e.printStackTrace();
@@ -129,7 +130,6 @@ public class PlateAPI {
                 Log.e(LOG_JSON_ERROR, e.toString());
             }
         });
-        return cote_vehicule;
     }
 
 
@@ -137,7 +137,7 @@ public class PlateAPI {
         void onGetVehicle(Vehicle vehicle);
     }
 
-//    public interface OnGetCote {
-//        void onGetCote(Vehicle vehicle);
-//    }
+    public interface OnGetCote {
+        void onGetCote(String cote_vehicule);
+    }
 }

@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
                                                      editor.putString("1", searchTxt.getText().toString());
                                                      editor.apply();
-                                                     vehicle.setCote(api_request.getVehiculeCote(vehicle));
                                                      Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
                                                      intent.putExtra(EXTRA_OBJET, Parcels.wrap(vehicle));
                                                      startActivity(intent);

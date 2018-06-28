@@ -12,6 +12,7 @@ import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
 import info.hoang8f.widget.FButton;
+import pricemycar.eni.fr.pricemycar.vehicleRecognition.PlateAPI;
 import pricemycar.eni.fr.pricemycar.vehicleRecognition.Vehicle;
 
 public class ResultsActivity extends AppCompatActivity {
@@ -20,12 +21,14 @@ public class ResultsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
-        TextView txtModele = findViewById(R.id.txtModel);
-        TextView txtCarburant = findViewById(R.id.txtType);
-        TextView txtYear = findViewById(R.id.txtYear);
-        TextView txtPlate = findViewById(R.id.txtPlate);
+        final TextView txtModele = findViewById(R.id.txtModel);
+        final TextView txtCarburant = findViewById(R.id.txtType);
+        final TextView txtYear = findViewById(R.id.txtYear);
+        final TextView txtPlate = findViewById(R.id.txtPlate);
+        final TextView txtCote = findViewById(R.id.txtCote);
         FButton backBtn = findViewById(R.id.back_button);
 
+        final PlateAPI api_request = new PlateAPI();
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,15 +39,25 @@ public class ResultsActivity extends AppCompatActivity {
 
 
         // deserialize object
-        Vehicle vehicle = Parcels.unwrap(
+        final Vehicle vehicle = Parcels.unwrap(
                 getIntent().getParcelableExtra("vehicle"));
 
-        txtModele.setText(vehicle.getLibelleModele());
-        txtCarburant.setText(vehicle.getCarburantVersion());
-        txtYear.setText(vehicle.getAnneeSortie());
-        txtPlate.setText(vehicle.getImmat());
-        Toast.makeText(ResultsActivity.this,vehicle.getAnneeSortie(),Toast.LENGTH_LONG).show();
-        Toast.makeText(ResultsActivity.this,vehicle.toString(),Toast.LENGTH_LONG).show();
+        api_request.setVehiculeCote(vehicle, new PlateAPI.OnGetCote() {
+            @Override
+            public void onGetCote(String cote_vehicule) {
+
+                vehicle.setCote(cote_vehicule);
+                Toast.makeText(ResultsActivity.this,vehicle.getAnneeSortie(),Toast.LENGTH_LONG).show();
+                Toast.makeText(ResultsActivity.this,vehicle.toString(),Toast.LENGTH_LONG).show();
+
+                txtModele.setText(vehicle.getLibelleModele());
+                txtCarburant.setText(vehicle.getCarburantVersion());
+                txtYear.setText(vehicle.getAnneeSortie());
+                txtPlate.setText(vehicle.getImmat());
+                txtCote.setText(vehicle.getCote());
+            }
+        });
+
 
     }
 }
