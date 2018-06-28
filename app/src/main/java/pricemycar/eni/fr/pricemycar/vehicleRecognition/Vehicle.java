@@ -15,12 +15,21 @@ public class Vehicle implements Serializable {
     private String nbPlace;
     private String immat;
     private String puissance;
+    private String cote;
+
+    public String getCote() {
+        return cote;
+    }
+
+    public void setCote(String cote) {
+        this.cote = cote;
+    }
 
     public Vehicle() {
 
     }
 
-    public Vehicle(String description, String anneeSortie, String boiteDeVitesse, String carburantVersion, String libVersion,String libelleModele, String nbPlace, String puissance, String immat)
+    public Vehicle(String description, String anneeSortie, String boiteDeVitesse, String carburantVersion, String libVersion,String libelleModele, String nbPlace, String puissance, String immat, String cote)
     {
         this.description = description;
         this.anneeSortie = anneeSortie;
@@ -31,10 +40,11 @@ public class Vehicle implements Serializable {
         this.nbPlace = nbPlace;
         this.puissance = puissance;
         this.immat = immat;
+        this.cote = cote;
     }
 
     public String toString() {
-      return "Description : "+this.description+"\n Année de sortie :"+this.anneeSortie+"\n Boite de vitesse :"+this.boiteDeVitesse+"\n Carburant :"+this.carburantVersion+"\n Version : "+this.libVersion+"\n Modèle :"+this.libelleModele+"\n Place :"+this.nbPlace+"\n Puissance :"+this.puissance;
+      return "Cote : "+this.cote+"\n Description : "+this.description+"\n Année de sortie :"+this.anneeSortie+"\n Boite de vitesse :"+this.boiteDeVitesse+"\n Carburant :"+this.carburantVersion+"\n Version : "+this.libVersion+"\n Modèle :"+this.libelleModele+"\n Place :"+this.nbPlace+"\n Puissance :"+this.puissance;
     }
 
 

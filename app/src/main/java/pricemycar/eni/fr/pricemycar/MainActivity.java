@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.setTitle("Accueil");
-        
+
 
         searchTxt = findViewById(R.id.txtSearch);
         btnPhoto = findViewById(R.id.btnPhoto);
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                                          @Override
                                          public void onClick(View view) {
                                              if(searchPlate()){
-                                             PlateAPI api_request = new PlateAPI();
+                                             final PlateAPI api_request = new PlateAPI();
                                              Vehicle vehicle = api_request.requestAPI(searchTxt.getText().toString(), new PlateAPI.OnGetPlate() {
                                                  @Override
                                                  public void onGetVehicle(Vehicle vehicle) {
@@ -71,12 +71,13 @@ public class MainActivity extends AppCompatActivity {
 
                                                      editor.putString("1", searchTxt.getText().toString());
                                                      editor.apply();
-
+                                                     vehicle.setCote(api_request.getVehiculeCote(vehicle));
                                                      Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
                                                      intent.putExtra(EXTRA_OBJET, Parcels.wrap(vehicle));
                                                      startActivity(intent);
                                                  }
                                              },MainActivity.this);
+
                                          }
                                      }}
         );

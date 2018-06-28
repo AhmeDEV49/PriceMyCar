@@ -33,6 +33,8 @@ public class ResultsActivity extends AppCompatActivity {
             }
         });
 
+
+
         // deserialize object
         Vehicle vehicle = Parcels.unwrap(
                 getIntent().getParcelableExtra("vehicle"));
@@ -41,7 +43,8 @@ public class ResultsActivity extends AppCompatActivity {
         txtCarburant.setText(vehicle.getCarburantVersion());
         txtYear.setText(vehicle.getAnneeSortie());
         txtPlate.setText(vehicle.getImmat());
-
+        Toast.makeText(ResultsActivity.this,vehicle.getAnneeSortie(),Toast.LENGTH_LONG).show();
+        Toast.makeText(ResultsActivity.this,vehicle.toString(),Toast.LENGTH_LONG).show();
 
     }
 }
