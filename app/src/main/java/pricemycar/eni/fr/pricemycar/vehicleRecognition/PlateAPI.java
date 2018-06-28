@@ -63,7 +63,8 @@ public class PlateAPI {
                             french_raw_json.getString("libelleModele"),
                             french_raw_json.getString("nbPlace"),
                             french_raw_json.getString("puissance"),
-                            plate_number);
+                            plate_number,
+                            "0");
                     listener.onGetVehicle(vehicle);
                 } catch (JSONException e) {
                     Toast.makeText(context, "Erreur JSON", Toast.LENGTH_LONG).show();
@@ -81,7 +82,7 @@ public class PlateAPI {
         return vehicle;
     }
 
-    public String getVehiculeCote(Vehicle vehicle, final OnGetCote listener) {
+    public String getVehiculeCote(Vehicle vehicle) {
         client = new AsyncHttpClient();
         // paramètres :
         RequestParams requestParams = new RequestParams();
@@ -107,7 +108,7 @@ public class PlateAPI {
                     JSONObject json_vehicle = new JSONObject(response_vehicle);
                     JSONObject json_vehicle_value = json_vehicle.getJSONObject("value");
                     cote_vehicule = json_vehicle_value.getString("c");
-                    listener.onGetCote(cote_vehicule);
+
                 } catch (JSONException e) {
                     Log.i("PARSE_VEHICLE_ERR_MSG", e.toString());
                     e.printStackTrace();
@@ -128,7 +129,7 @@ public class PlateAPI {
         void onGetVehicle(Vehicle vehicle);
     }
 
-    public interface OnGetCote {
-        void onGetCote(String cote);
-    }
+//    public interface OnGetCote {
+//        void onGetCote(Vehicle vehicle);
+//    }
 }
