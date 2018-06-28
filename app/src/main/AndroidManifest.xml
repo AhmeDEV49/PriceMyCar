@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ResultsActivity"
-            android:label="Résultats de la rechercher">
+            android:label="Résultat">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pricemycar.eni.fr.pricemycar.MainActivity" />
