@@ -32,21 +32,13 @@ public class PlateAPI {
     AsyncHttpClient client;
 
 
-    public Vehicle requestAPI(final String plate_number, final OnGetPlate listener, final Context context){
-<<<<<<< HEAD
+    public Vehicle requestAPI(final String plate_number, final OnGetPlate listener, final Context context) {
+
         if (context instanceof Activity) {
             client = new AsyncHttpClient();
-=======
-            if (context instanceof Activity) {
-                client = new AsyncHttpClient();
->>>>>>> 1a1a4f7fafc1aa0ca2726311a88d09bc2239fcc4
-
         } else {
             client = new SyncHttpClient();
         }
-
-
-<<<<<<< HEAD
         // paramètres :
         RequestParams requestParams = new RequestParams();
         requestParams.put("RegistrationNumber", plate_number);
@@ -74,41 +66,9 @@ public class PlateAPI {
                             plate_number);
                     listener.onGetVehicle(vehicle);
                 } catch (JSONException e) {
+                    Toast.makeText(context, "Erreur JSON", Toast.LENGTH_LONG).show();
                     Log.i("PARSE_VEHICLE_ERR", PARSE_VEHICLE_ERR_MSG);
                     e.printStackTrace();
-=======
-            // paramètres :
-            RequestParams requestParams = new RequestParams();
-            requestParams.put("RegistrationNumber", plate_number);
-            requestParams.put("username", USERNAME);
-            // appel :
-
-            client.post(API_URL, requestParams, new AsyncHttpResponseHandler() {
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                    String response_vehicle = new String(response);
-                    response_vehicle = substringBetween(response_vehicle, "<vehicleJson>", "</vehicleJson");
-                    // Parse it into JSON object
-                    try {
-                        JSONObject vehicle_json = new JSONObject(response_vehicle);
-                        JSONObject french_raw_json = vehicle_json.getJSONObject("ExtendedData");
-                        // Return the vehicule object
-                        vehicle = new Vehicle(vehicle_json.getString("Description"),
-                                french_raw_json.getString("anneeSortie"),
-                                french_raw_json.getString("boiteDeVitesse"),
-                                french_raw_json.getString("carburantVersion"),
-                                french_raw_json.getString("libVersion"),
-                                french_raw_json.getString("libelleModele"),
-                                french_raw_json.getString("nbPlace"),
-                                french_raw_json.getString("puissance"),
-                                plate_number);
-                        listener.onGetVehicle(vehicle);
-                    } catch (JSONException e) {
-                        Toast.makeText(context, "Erreur JSON", Toast.LENGTH_LONG).show();
-                        Log.i("PARSE_VEHICLE_ERR", PARSE_VEHICLE_ERR_MSG);
-                        e.printStackTrace();
-                    }
->>>>>>> 1a1a4f7fafc1aa0ca2726311a88d09bc2239fcc4
                 }
             }
 
@@ -121,7 +81,6 @@ public class PlateAPI {
         return vehicle;
     }
 
-
     public String getVehiculeCote(Vehicle vehicle, final OnGetCote listener) {
         client = new AsyncHttpClient();
         // paramètres :
@@ -131,14 +90,15 @@ public class PlateAPI {
         requestParams.put("txt", vehicle.toString());
         requestParams.put("dt_entry_service", vehicle.getAnneeSortie());
         requestParams.put("km", 0);
-        requestParams.put("value",true);
-        requestParams.put("market",true);
-        requestParams.put("transaction",true);
+        requestParams.put("value", true);
+        requestParams.put("market", true);
+        requestParams.put("transaction", true);
 
 
         // appel :
         client.post(API_ESTIMATION_URL, requestParams, new AsyncHttpResponseHandler() {
             String cote_vehicule = "Non trouvée";
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 String response_vehicle = new String(response);
@@ -163,9 +123,11 @@ public class PlateAPI {
         return cote_vehicule;
     }
 
+
     public interface OnGetPlate {
         void onGetVehicle(Vehicle vehicle);
     }
+
     public interface OnGetCote {
         void onGetCote(String cote);
     }
