@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     EditText searchTxt;
     FButton btnPhoto;
     FButton btnSearch;
-    EditText historyTxt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,11 +43,9 @@ public class MainActivity extends AppCompatActivity {
         searchTxt = findViewById(R.id.txtSearch);
         btnPhoto = findViewById(R.id.btnPhoto);
         btnSearch = findViewById(R.id.btnSearch);
-        historyTxt = findViewById(R.id.txtHistory);
 
         SharedPreferences preferences =
         PreferenceManager.getDefaultSharedPreferences(this);
-        historyTxt.setText(preferences.getString("1", "Aucun contenu"));
 
         btnPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,12 +78,12 @@ public class MainActivity extends AppCompatActivity {
                                          }
                                      }}
         );
-        historyTxt.setOnClickListener(new View.OnClickListener(){
+        /*historyTxt.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 searchTxt.setText(historyTxt.getText());
             }
-        });
+        });*/
     }
     // Vérifie que la plaque d'immatriculation proposée est au bon format
     public static boolean isImmatriculationValid(String plateNumber)
@@ -112,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         return checkPlate;
     }
 
-     @Override
+     /*@Override
      protected void onResume() {
 
                 historyTxt = findViewById(R.id.txtHistory);
@@ -121,5 +118,5 @@ public class MainActivity extends AppCompatActivity {
                 PreferenceManager.getDefaultSharedPreferences(this);
         historyTxt.setText(preferences.getString("1", "Aucun contenu"));
         super.onResume();
-     }
+     }*/
 }
