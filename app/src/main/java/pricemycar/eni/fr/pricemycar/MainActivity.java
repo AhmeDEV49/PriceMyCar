@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import org.parceler.Parcels;
@@ -32,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     EditText searchTxt;
     FButton btnPhoto;
     FButton btnSearch;
+    FButton btnHistory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         searchTxt = findViewById(R.id.txtSearch);
         btnPhoto = findViewById(R.id.btnPhoto);
         btnSearch = findViewById(R.id.btnSearch);
+        btnHistory = findViewById(R.id.btnHistory);
 
         SharedPreferences preferences =
         PreferenceManager.getDefaultSharedPreferences(this);
@@ -77,12 +78,14 @@ public class MainActivity extends AppCompatActivity {
                                          }
                                      }}
         );
-        /*historyTxt.setOnClickListener(new View.OnClickListener(){
+        btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                searchTxt.setText(historyTxt.getText());
+                Intent intent = new Intent(MainActivity.this, ActivityHistory.class);
+                startActivity(intent);
             }
-        });*/
+        });
+
     }
     // Vérifie que la plaque d'immatriculation proposée est au bon format
     public static boolean isImmatriculationValid(String plateNumber)
@@ -107,15 +110,4 @@ public class MainActivity extends AppCompatActivity {
 
         return checkPlate;
     }
-
-     /*@Override
-     protected void onResume() {
-
-                historyTxt = findViewById(R.id.txtHistory);
-
-                SharedPreferences preferences =
-                PreferenceManager.getDefaultSharedPreferences(this);
-        historyTxt.setText(preferences.getString("1", "Aucun contenu"));
-        super.onResume();
-     }*/
 }

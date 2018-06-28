@@ -3,7 +3,8 @@
     package="pricemycar.eni.fr.pricemycar">
 
     <uses-feature android:name="android.hardware.camera" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -20,25 +21,30 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="ocr" />
 
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:label="PriceMyCar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ResultsActivity"
+        <activity
+            android:name=".ResultsActivity"
             android:label="Résultat">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pricemycar.eni.fr.pricemycar.MainActivity" />
         </activity>
-        <activity android:name="pricemycar.eni.fr.pricemycar.ocrreader.OcrCaptureActivity"
+        <activity
+            android:name=".ocrreader.OcrCaptureActivity"
             android:label="Prenez en photo une plaque">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pricemycar.eni.fr.pricemycar.MainActivity" />
         </activity>
+        <activity android:name=".ActivityHistory"></activity>
     </application>
 
 </manifest>
