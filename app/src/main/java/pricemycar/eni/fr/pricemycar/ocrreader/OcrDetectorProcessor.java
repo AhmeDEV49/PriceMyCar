@@ -56,7 +56,7 @@ public class OcrDetectorProcessor implements Detector.Processor<TextBlock> {
      */
     @Override
     public void receiveDetections(Detector.Detections<TextBlock> detections) {
-        Pattern pattern = Pattern.compile("^[A-Za-z]{2}-[0-9]{3}-[A-Za-z]{2}([0-9]{2})?$");
+        Pattern pattern = Pattern.compile("^[A-Za-z]{2}(-)?[0-9]{3}(-)?[A-Za-z]{2}([0-9]{2})?$");
         graphicOverlay.clear();
         SparseArray<TextBlock> items = detections.getDetectedItems();
         for (int i = 0; i < items.size(); ++i) {

@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     // Vérifie que la plaque d'immatriculation proposée est au bon format
     public static boolean isImmatriculationValid(String plateNumber)
     {
-        String expression = "^[A-Za-z]{2}-[0-9]{3}-[A-Za-z]{2}([0-9]{2})?$";
+        String expression = "^[A-Za-z]{2}(-)?[0-9]{3}(-)?[A-Za-z]{2}([0-9]{2})?$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(plateNumber);
         return matcher.matches();
